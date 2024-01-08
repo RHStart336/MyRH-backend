@@ -23,13 +23,14 @@ public class CandidateController {
     @PostMapping("register")
     public ResponseEntity<String> registerCandidate(@RequestBody CandidateDTO condidatDTO) {
 
-        boolean isUserRegistered = condidatService.registration(condidatDTO);
-
-        if (isUserRegistered) {
-            return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to register user");
-        }
+//        boolean isUserRegistered = condidatService.registration(condidatDTO);
+//
+//        if (isUserRegistered) {
+//            return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
+//        } else {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to register user");
+//        }
+        return null;
     }
     @PostMapping("login")
     public ResponseEntity<CandidateDTO> loginCandidate(@RequestBody CandidateDTO candidateDTO) {

@@ -5,6 +5,7 @@ import example.brief.MyRh.Enum.ConnectedStatus;
 import example.brief.MyRh.Util.EmailSender;
 import example.brief.MyRh.dtos.SocieteDTO;
 import example.brief.MyRh.dtos.societe.RequestCreateSocieteDTO;
+import example.brief.MyRh.entities.Postule;
 import example.brief.MyRh.entities.Societe;
 import example.brief.MyRh.exceptions.exception.LoginSocieteException;
 import example.brief.MyRh.exceptions.exception.NotExist;
@@ -102,4 +103,6 @@ public class SocieteServiceImpl implements SocieteService {
         this.societeRepository.save(societe);
         return true;
     }
+
+
 }

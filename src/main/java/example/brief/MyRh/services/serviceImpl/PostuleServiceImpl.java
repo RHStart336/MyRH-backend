@@ -115,14 +115,50 @@ public class PostuleServiceImpl implements PostuleService {
     @Override
     public List<PostuleDto> FindPostuleByStatus(Long offerId, String Status) {
         Offre offre =   offreRepository.findById(offerId).orElseThrow(()->new NotExist("offre doest exist"));
-        List<Postule> postules = postuleRepository.findAllByOffreAndPostuleStatus(offre, PostuleStatus.valueOf(Status));
+        List<Postule> postules = postuleRepository.findAllByOffreAndPostuleStatus(offre, ConnectedStatus.valueOf(Status));
+
         List<PostuleDto> postuleDtos = new ArrayList<>();
+
         for (Postule P : postules){
             PostuleDto postuleDto = PostuleMapper.INSTANCE.toDto(P);
             postuleDtos.add(postuleDto);
         }
-        return null;
+        return postuleDtos;
     }
+
+    @Override
+    public List<PostuleDto> findPostuleByTitre(String Titre) {
+        List<Offre> offres =   offreRepository.findAllByTitre(Titre);
+        List<Postule> postules = new ArrayList<>();
+        List<PostuleDto> postuleDtos = new ArrayList<>();
+
+        for (Offre Of : offres){
+
+            postules = postuleRepository.findAllByOffre(Of);
+
+
+        }
+        for (Postule P : postules){
+            PostuleDto postuleDto = PostuleMapper.INSTANCE.toDto(P);
+            postuleDtos.add(postuleDto);
+        }
+
+
+
+        return postuleDtos;
+    }
+
+    @Override
+    public Boolean ValiderCandidature(Long postuleId, String Status) {
+
+        Optional<Postule> postule = Optional.ofNullable(postuleRepository.findById(postuleId).orElseThrow(() -> new NotExist("doesnt exist")));
+        postule.get().setPostuleResponse(StatusOffre.valueOf(Status));
+        postuleRepository.save(postule.get());
+        return true;
+
+    }
+
+
     private boolean checkPostuleState(long societeId){
         boolean result = false;
         Societe societe = this.societeRepository.findById(societeId).orElseThrow(()-> new NotExist("the societe dont exist"));

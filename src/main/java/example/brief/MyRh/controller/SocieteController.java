@@ -15,6 +15,7 @@ import java.io.IOException;
 @RequestMapping("societes")
 public class SocieteController {
     private SocieteService societeService;
+
     private final OffreService offreService;
 
     @Autowired

@@ -2,6 +2,7 @@ package example.brief.MyRh.services;
 
 import example.brief.MyRh.dtos.PostuleDto;
 import example.brief.MyRh.dtos.offre.request.RequestPostuleOffre;
+import example.brief.MyRh.entities.Postule;
 
 import java.util.List;
 
@@ -11,4 +12,8 @@ public interface PostuleService {
     List<PostuleDto> findPostuleOffers(Long offereId);
 
     List<PostuleDto> FindPostuleByStatus(Long offerId,String Status);
+
+    List<PostuleDto> findPostuleByTitre(String Titre);
+
+    Boolean ValiderCandidature(Long postuleId,String Status);
 }

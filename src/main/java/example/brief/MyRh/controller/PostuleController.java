@@ -66,6 +66,14 @@ public class PostuleController {
 
     }
 
+    @GetMapping("/titre/{titre}")
+    public ResponseEntity fetchPostuleOffersByTitre(@PathVariable String titre){
+
+        return ResponseEntity.ok(postuleService.findPostuleByTitre(titre));
+
+    }
+
+
     @GetMapping("/cv")
     public ResponseEntity fetchCv(@RequestParam String cvPath) throws IOException {
         Path filePath = Paths.get(cvPath);
@@ -84,6 +92,11 @@ public class PostuleController {
         headers.setContentType(MediaType.APPLICATION_PDF);
         return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
 
+    }
+
+    @PostMapping("valide/{postuleId}/{status}")
+    public ResponseEntity ValideOffre(@PathVariable Long postuleId,@PathVariable String status){
+        return ResponseEntity.ok(postuleService.ValiderCandidature(postuleId,status));
     }
 
     /*@GetMapping("/{offerId}")

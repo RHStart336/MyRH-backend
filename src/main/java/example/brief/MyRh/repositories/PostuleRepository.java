@@ -1,5 +1,6 @@
 package example.brief.MyRh.repositories;
 
+import example.brief.MyRh.Enum.ConnectedStatus;
 import example.brief.MyRh.Enum.PostuleStatus;
 import example.brief.MyRh.entities.Offre;
 import example.brief.MyRh.entities.Postule;
@@ -10,6 +11,7 @@ import java.util.List;
 public interface PostuleRepository extends JpaRepository<Postule, Long> {
     List<Postule> findAllByOffre(Offre offre);
 
-    List<Postule> findAllByOffreAndPostuleStatus(Offre offre, PostuleStatus postuleStatus);
+    List<Postule> findAllByOffreAndPostuleStatus(Offre offre, ConnectedStatus connectedStatus);
+
 
 }

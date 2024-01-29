@@ -29,8 +29,8 @@ public class SocieteController {
         return  ResponseEntity.status(HttpStatus.CREATED).body(this.societeService.createSociete(societeDTO));
     }
     @PostMapping("/login")
-    public ResponseEntity<SocieteDTO> loginSociete(@RequestBody  SocieteDTO societeDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.societeService.loginSociete(societeDTO));
+    public ResponseEntity loginSociete(@RequestBody  SocieteDTO societeDTO){
+        return ResponseEntity.ok(this.societeService.loginSociete(societeDTO));
     }
 
 

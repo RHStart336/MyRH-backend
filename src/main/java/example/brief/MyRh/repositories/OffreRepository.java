@@ -12,4 +12,6 @@ public interface OffreRepository extends JpaRepository<Offre, Long>, JpaSpecific
     List<Offre> findAllBySociete(Societe societe);
     List<Offre> findAllByTitre(String Titre);
 
+    Long countAllBySocieteId(Long id);
+
 }

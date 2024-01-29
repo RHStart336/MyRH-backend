@@ -86,12 +86,13 @@ public class SocieteServiceImpl implements SocieteService {
                 societeOpt.get().setConnected(ConnectedStatus.CONNECTED);
                 societe = societeRepository.save(societeOpt.get());
 
-            }else{
-                throw  new LoginSocieteException("the password is not correct");
-            }
+
             return societeMapper.toDto(societe);
+            }else{
+            throw  new LoginSocieteException("the password is not correct");
+            }
         }else {
-            throw  new LoginSocieteException("the login operation is field");
+            throw  new LoginSocieteException("the login operation is failed");
         }
 
     }
@@ -103,6 +104,8 @@ public class SocieteServiceImpl implements SocieteService {
         this.societeRepository.save(societe);
         return true;
     }
+
+
 
 
 }

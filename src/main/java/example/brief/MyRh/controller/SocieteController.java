@@ -7,6 +7,7 @@ import example.brief.MyRh.services.SocieteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -35,6 +36,7 @@ public class SocieteController {
 
 
     @PostMapping("/validation/{code}")
+    @PreAuthorize("hasAuthority('Role_Agent')")
     public ResponseEntity<String> validationCompteSociete(@PathVariable String code){
 
         System.out.println("code " + code);
@@ -46,6 +48,7 @@ public class SocieteController {
     }
 
     @GetMapping("/offers/{societeId}")
+    @PreAuthorize("hasAuthority('Role_Societe')")
     public ResponseEntity Offers(@PathVariable Long societeId){
 
         return ResponseEntity.ok(offreService.FetchSocieteOffres(societeId));

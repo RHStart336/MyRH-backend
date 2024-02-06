@@ -2,6 +2,7 @@ package example.brief.MyRh.services.serviceImpl;
 
 import example.brief.MyRh.Enum.CompteStatus;
 import example.brief.MyRh.Enum.ConnectedStatus;
+import example.brief.MyRh.Enum.SubscriptionStatus;
 import example.brief.MyRh.Util.EmailSender;
 import example.brief.MyRh.dtos.SocieteDTO;
 import example.brief.MyRh.dtos.societe.RequestCreateSocieteDTO;
@@ -12,6 +13,7 @@ import example.brief.MyRh.exceptions.exception.NotExist;
 import example.brief.MyRh.mappers.SocieteMapper;
 import example.brief.MyRh.repositories.SocieteRepository;
 import example.brief.MyRh.services.SocieteService;
+import jakarta.persistence.EntityNotFoundException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,8 +49,9 @@ public class SocieteServiceImpl implements SocieteService {
                 .email(createSocieteDTO.getEmail())
                 .password(createSocieteDTO.getPassword())
                 .adresse(createSocieteDTO.getAdresse())
-                .phone(createSocieteDTO.getPhone())
+                .phone(Integer.parseInt(createSocieteDTO.getPhone()))
                 .build();
+
         System.out.println("the email " + societe.getEmail() + " the phone number " + societe.getPhone());
         String hashPassword = BCrypt.hashpw(societe.getPassword(), BCrypt.gensalt());
         System.out.println("the hashed password " + hashPassword);
@@ -105,7 +108,16 @@ public class SocieteServiceImpl implements SocieteService {
         return true;
     }
 
-
+    @Override
+    public Boolean verificationSubscription(Long companyId, String subscriptionStatus) {
+        boolean result = false;
+        Societe company = this.societeRepository.findById(companyId)
+                .orElseThrow(() -> new EntityNotFoundException("Company Not Found"));
+        company.setSubscription(SubscriptionStatus.valueOf(subscriptionStatus));
+        this.societeRepository.save(company);
+        result = true;
+        return result;
+    }
 
 
 }

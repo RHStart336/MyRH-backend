@@ -10,7 +10,7 @@ public interface SocieteService {
     SocieteDTO createSociete(RequestCreateSocieteDTO societeDTO) throws IOException;
     SocieteDTO loginSociete(SocieteDTO societeDTO);
     Boolean verificationCode(String Code);
-
+    Boolean verificationSubscription(Long companyId, String subscriptionStatus);
 
 
 }

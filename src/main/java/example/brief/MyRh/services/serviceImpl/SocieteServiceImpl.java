@@ -1,17 +1,22 @@
 package example.brief.MyRh.services.serviceImpl;
 
+import com.stripe.exception.StripeException;
 import example.brief.MyRh.Enum.CompteStatus;
 import example.brief.MyRh.Enum.ConnectedStatus;
 import example.brief.MyRh.Enum.SubscriptionStatus;
 import example.brief.MyRh.Util.EmailSender;
+import example.brief.MyRh.dtos.CompanySubscribeResponse;
 import example.brief.MyRh.dtos.SocieteDTO;
 import example.brief.MyRh.dtos.societe.RequestCreateSocieteDTO;
 import example.brief.MyRh.entities.Postule;
 import example.brief.MyRh.entities.Societe;
+import example.brief.MyRh.exceptions.exception.BadRequestException;
 import example.brief.MyRh.exceptions.exception.LoginSocieteException;
 import example.brief.MyRh.exceptions.exception.NotExist;
 import example.brief.MyRh.mappers.SocieteMapper;
 import example.brief.MyRh.repositories.SocieteRepository;
+import example.brief.MyRh.services.CompanySubscriptionService;
+import example.brief.MyRh.services.PaymentService;
 import example.brief.MyRh.services.SocieteService;
 import jakarta.persistence.EntityNotFoundException;
 import org.mindrot.jbcrypt.BCrypt;
@@ -28,16 +33,18 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class SocieteServiceImpl implements SocieteService {
+public class SocieteServiceImpl implements SocieteService, CompanySubscriptionService {
     private SocieteRepository societeRepository;
     private SocieteMapper societeMapper;
     @Value("${UPLOAD_DIR.Images}")
     private static final String UPLOAD_DIR = "src/main/resources/images/";
     private final EmailSender emailSender;
+    private PaymentService paymentService;
     @Autowired
-    public SocieteServiceImpl(SocieteRepository societeRepository, EmailSender emailSender) {
+    public SocieteServiceImpl(SocieteRepository societeRepository, EmailSender emailSender, PaymentService paymentService) {
         this.societeRepository = societeRepository;
         this.emailSender = emailSender;
+        this.paymentService = paymentService;
         this.societeMapper = SocieteMapper.INSTANCE;
     }
 
@@ -118,6 +125,7 @@ public class SocieteServiceImpl implements SocieteService {
         result = true;
         return result;
     }
+
 
 
 }

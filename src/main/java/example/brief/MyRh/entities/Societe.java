@@ -35,6 +35,9 @@ public class Societe {
     @Enumerated(EnumType.STRING)
     private SubscriptionStatus subscription;
 
+
+    @Enumerated(EnumType.STRING)
+    private SubscriptionStatus subscription;
     @PrePersist
     @PreUpdate
     public void checkStatus() {
@@ -45,6 +48,7 @@ public class Societe {
             this.connected = ConnectedStatus.DISCONNECT;
         }
         if (this.subscription == null || this.subscription.describeConstable().isEmpty()) {
+
             this.subscription = SubscriptionStatus.GUEST;
         }
 

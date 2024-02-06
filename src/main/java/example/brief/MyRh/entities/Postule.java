@@ -23,7 +23,7 @@ public class Postule {
 
     private String cv;
     private String motivation;
-
+    private Integer nbrPostule;
     @Enumerated(EnumType.STRING)
     private ConnectedStatus postuleStatus;
 
@@ -39,6 +39,9 @@ public class Postule {
         if (this.postuleStatus == null || this.postuleStatus.describeConstable().isEmpty()){
             this.postuleStatus = ConnectedStatus.DISCONNECT;
 
+        }
+        if (this.nbrPostule == null || this.nbrPostule.describeConstable().isEmpty()){
+            this.nbrPostule = 0;
         }
     }
 }

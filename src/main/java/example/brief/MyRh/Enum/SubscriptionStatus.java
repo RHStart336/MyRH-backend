@@ -4,4 +4,5 @@ public enum SubscriptionStatus {
     GUEST,
     BASIC,
     PREMIUM
+
 }
